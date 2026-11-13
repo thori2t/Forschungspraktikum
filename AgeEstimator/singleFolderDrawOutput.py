@@ -16,8 +16,8 @@ def main():
     args = SimpleNamespace(
         input="/home/thori2t/Documents/Uni/5. Semester/Forschungspraktikum/WebCrawler/Forschungspraktikum/images/de/www.tu-chemnitz.de/",
         output="output/",
-        detector_weights="yolov8x_person_face.pt",
-        checkpoint="model_imdb_cross_person_4.22_99.46.pth.tar",
+        detector_weights="models/yolov8x_person_face.pt",
+        checkpoint="models/model_imdb_cross_person_4.22_99.46.pth.tar",
         with_persons=True,
         disable_faces=False,
         draw=True, # hier false machen, damit keine Bilder für den Output Ordner erstellt werden

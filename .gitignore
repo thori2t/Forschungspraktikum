@@ -4,5 +4,6 @@ __pycache__/
 images/
 *.log
 .scrapy/
-*.tar
+*.pth
+*.pth.tar
 *.pt
