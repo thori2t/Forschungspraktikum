@@ -7,3 +7,4 @@ images/
 *.pth
 *.pth.tar
 *.pt
+*.env

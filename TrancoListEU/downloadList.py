@@ -1,8 +1,11 @@
+import os
+from dotenv import load_dotenv
 import time
 from tranco import Tranco
 
-EMAIL = "deine@mail.de"
-API_KEY = "DEIN_API_KEY"
+load_dotenv()
+EMAIL = os.environ["TRANCO_EMAIL"]
+API_KEY = os.environ["TRANCO_API_KEY"]
 
 t = Tranco(account_email=EMAIL, api_key=API_KEY, cache=True, cache_dir=".tranco")
 
