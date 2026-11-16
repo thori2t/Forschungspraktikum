@@ -8,3 +8,5 @@ images/
 *.pth.tar
 *.pt
 *.env
+.env
+crawls/run*

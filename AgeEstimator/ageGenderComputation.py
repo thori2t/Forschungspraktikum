@@ -137,23 +137,38 @@ def main():
 
 def computeTopLevelDomain(path, predictor):
     totalAge = 0
+    totalAgePerDomain = 0
+    totalFemalePortionPerDomain = 0
+    numDomains = 0
     numMale = 0
     numFemale = 0
+
     _logger.info("topLevelDomainFolder: " + path)
+
     for topLevelDomainFolder, secondLevelFolders, files in os.walk(path):
         for secondLevelFolder in secondLevelFolders:
+            numDomains += 1
             _logger.info("secondLevelFolder: " + secondLevelFolder)
             ages, male, female = computeSecondLevelDomain(os.path.join(topLevelDomainFolder, secondLevelFolder), predictor)
             totalAge += ages
+            if(male + female > 0):
+                totalAgePerDomain += (ages / (male + female))
+            if(female > 0):
+                totalFemalePortionPerDomain += female / (male + female)
             numMale += male
             numFemale += female
+
             _logger.info("TopLeveldomain    " + topLevelDomainFolder)
             _logger.info("totalAge  " + str(totalAge))
             _logger.info("numMale   " + str(numMale))
             _logger.info("numFemale " + str(numFemale))
+            if(numMale + numFemale > 0):
+                _logger.info("femalePortion " + str(numFemale / numMale + numFemale))
+            _logger.info("femalePortionPerDomain " + str())
             _logger.info("----------------------------------------------ä----")
+            writeResultsFile(path + "/results.txt", totalAge, numMale, numFemale, totalAgePerDomain, totalFemalePortionPerDomain, numDomains)
+
     _logger.info("topLevelDomainFolder + txt : " + path + "/results.txt" )
-    writeResultsFile(path + "/results.txt", totalAge, numMale, numFemale)
 
 def computeSecondLevelDomain(path, predictor):
     totalAge = 0
@@ -170,24 +185,27 @@ def computeSecondLevelDomain(path, predictor):
             totalAge += ages
             numMale += male
             numFemale += female
-            _logger.info("domain    " + secondLevelDomainFolder)
-            _logger.info("totalAge  " + str(totalAge))
-            _logger.info("numMale   " + str(numMale))
-            _logger.info("numFemale " + str(numFemale))
-            _logger.info("----------------------------------------------ä----")
-
     writeResultsFile(secondLevelDomainFolder + "/results.txt", totalAge, numMale, numFemale)
     return totalAge, numMale, numFemale
 
-def writeResultsFile(path, totalAge, numMale, numFemale):
+def writeResultsFile(path, totalAge, numMale, numFemale, totalAgePerDomain = 0, totalFemalePortionPerDomain = 0, numDomains = 0):
     with open(path, "w") as f:
-        f.write("\n--------------------------------")
-        f.write("\ntotalAge: " + str(totalAge))
-        f.write("\nnumPeople: " + str(numMale + numFemale))
+        f.write("\nsummed age: " + str(totalAge))
+        f.write("\nnumber people: " + str(numMale + numFemale))
+        f.write("\nnumber male: " + str(numMale))
+        f.write("\nnumber female: " + str(numFemale))
+
         if(numMale + numFemale > 0):
-            f.write("\naverage Age: " + str(totalAge / (numMale + numFemale)))
-        f.write("\nnumMale: " + str(numMale))
-        f.write("\nnumFemale: " + str(numFemale))
+            f.write("\ntotal average Age: " + str(totalAge / (numMale + numFemale)))
+            f.write("\ntotal female ratio: " + str(numFemale / (numMale + numFemale)))
+
+        if(numDomains > 0):
+            f.write("\n\nnumDomains: " + str(numDomains))
+            f.write("\nsummed age per domains: " + str(totalAgePerDomain))
+            f.write("\nsummed female ratio per domains: " + str(totalFemalePortionPerDomain))
+            f.write("\nfemale ratio per domain: " + str(totalFemalePortionPerDomain / numDomains))
+            f.write("\naverage age per domain: " + str(totalAgePerDomain / numDomains))
+
 
 if __name__ == "__main__":
     main()

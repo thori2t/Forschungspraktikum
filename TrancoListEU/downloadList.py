@@ -7,6 +7,9 @@ load_dotenv()
 EMAIL = os.environ["TRANCO_EMAIL"]
 API_KEY = os.environ["TRANCO_API_KEY"]
 
+print(EMAIL)
+print(API_KEY)
+
 t = Tranco(account_email=EMAIL, api_key=API_KEY, cache=True, cache_dir=".tranco")
 
 config = {
