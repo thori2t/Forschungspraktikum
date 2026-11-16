@@ -5,6 +5,7 @@
 
 
 # useful for handling different item types with a single interface
+from urllib.parse import urlparse
 from itemadapter import ItemAdapter
 from scrapy.pipelines.images import ImageException, ImagesPipeline
 
@@ -22,8 +23,8 @@ class ForschungspraktikumPipeline(ImagesPipeline):
             yield path, image, buf
     '''
     def file_path(self, request, response=None, info=None, *, item=None):
-        rval = super().file_path(request, response, info, item=item)
-        #country = item['country'] if item else 'unknown'
-        domain = item['domain']
-        country = domain.split('.')[-1]
-        return f"{country}/{domain}/{rval.split('/')[-1]}"
+            filename = super().file_path(request, response, info, item=item).split('/')[-1]
+            host = ItemAdapter(item).get('domain') if item else None
+            host = (host or urlparse(request.url).hostname or 'unknown').split(':')[0]
+            tld = host.rsplit('.', 1)[-1]
+            return f"{tld}/{host}/{filename}"

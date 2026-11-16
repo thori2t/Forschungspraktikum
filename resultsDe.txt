@@ -1,0 +1,13 @@
+
+summed age: 1133952.7200000004
+number people: 31069
+number male: 20646
+number female: 10423
+total average Age: 36.49788277704466
+total female ratio: 0.3354790949177637
+
+numDomains: 846
+summed age per domains: 24455.283022408577
+summed female ratio per domains: 263.22983416868044
+female ratio per domain: 0.31114637608591067
+average age per domain: 28.9069539271969

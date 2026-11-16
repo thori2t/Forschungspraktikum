@@ -9,3 +9,4 @@ images/
 *.pt
 *.env
 .env
+crawls/run*

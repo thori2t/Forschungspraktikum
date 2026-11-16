@@ -22,12 +22,14 @@ USER_AGENT = "Forschungspraktikum (thoralf.teumer@s2021.tu-chemnitz.de)"
 ROBOTSTXT_OBEY = True
 
 # Concurrency and throttling settings
-#CONCURRENT_REQUESTS = 16
+CONCURRENT_REQUESTS = 64
 CONCURRENT_REQUESTS_PER_DOMAIN = 1
 DOWNLOAD_DELAY = 1
+REACTOR_THREADPOOL_MAXSIZE = 20
+DNSCACHE_SIZE = 100000
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -61,18 +63,24 @@ DOWNLOAD_DELAY = 1
 ITEM_PIPELINES = {
     "Forschungspraktikum.pipelines.ForschungspraktikumPipeline": 1,
 }
+<<<<<<< HEAD
 #IMAGES_STORE = '/run/media/thori2t/HDD_LUL/Forschungspraktikum/Images'
 IMAGES_STORE = 'Images'
 IMAGES_MIN_HEIGHT = 256
 IMAGES_MIN_WIDTH = 256
+=======
+IMAGES_STORE = '/run/media/thori2t/HDD_LUL/Forschungspraktikum/Images'
+IMAGES_MIN_HEIGHT = 100
+IMAGES_MIN_WIDTH = 100
+>>>>>>> ac11c2bf7721a92949310d3b5ab412c652d1fb41
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 5
+AUTOTHROTTLE_START_DELAY = 2
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 60
+AUTOTHROTTLE_MAX_DELAY = 30
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
@@ -89,3 +97,21 @@ AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 
 # Set settings whose default value is deprecated to a future-proof value
 FEED_EXPORT_ENCODING = "utf-8"
+
+
+# Code von Claude
+# Crawl begrenzen
+DEPTH_LIMIT = 1
+DOWNLOAD_TIMEOUT = 30
+DOWNLOAD_MAXSIZE = 10 * 1024*1024
+RETRY_TIMES = 2
+
+# Domains abwechselnd statt eine nach der anderen abarbeiten
+SCHEDULER_PRIORITY_QUEUE = "scrapy.pqueues.DownloaderAwarePriorityQueue"
+DEPTH_PRIORITY = 1
+SCHEDULER_DISK_QUEUE = "scrapy.squeues.PickleFifoDiskQueue"
+SCHEDULER_MEMORY_QUEUE = "scrapy.squeues.FifoMemoryQueue"
+
+# Komfort
+LOG_LEVEL = "INFO"
+JOBDIR = "crawls/run5"
