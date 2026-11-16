@@ -61,7 +61,8 @@ DOWNLOAD_DELAY = 1
 ITEM_PIPELINES = {
     "Forschungspraktikum.pipelines.ForschungspraktikumPipeline": 1,
 }
-IMAGES_STORE = '/run/media/thori2t/HDD_LUL/Forschungspraktikum/Images'
+#IMAGES_STORE = '/run/media/thori2t/HDD_LUL/Forschungspraktikum/Images'
+IMAGES_STORE = 'Images'
 IMAGES_MIN_HEIGHT = 256
 IMAGES_MIN_WIDTH = 256
 
